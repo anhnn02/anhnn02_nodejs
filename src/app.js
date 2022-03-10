@@ -1,18 +1,19 @@
 // const http = require('http');
-const express = require('express');
+// const express = require('express');
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import productRouter from './routes/products';
+
 const app = express();
 
-app.get("/", (req, res) => {
-    res.send("Hello Home");
-})
+//middleware
+app.use(cors());
+app.use(morgan("tiny"));
+app.use(express.json()); // server doc du lieu tra ve trong terminal
 
-app.get("/api/products", (req, res) => {
-     const data = [
-        {id: 1, name: "Anh"},
-        {id: 2, name: "B"}
-    ]
-    res.json(data);
-})
+//routes
+app.use("/api", productRouter)
 
 // const server = http.createServer((req, res) => {
 //     console.log("Tao server thanh cong!");
@@ -34,6 +35,8 @@ app.get("/api/products", (req, res) => {
 //     }
 // })
 
+
+//connect
 const PORT = 3001;
 app.listen(PORT, () => {
     console.log("Your PORT ", PORT);
