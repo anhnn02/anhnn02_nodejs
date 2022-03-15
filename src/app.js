@@ -1,9 +1,11 @@
-// const http = require('http');
-// const express = require('express');
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import productRouter from './routes/products';
+import routerProduct from './routes/products';
+import routerAuth from './routes/user';
+import mongoose  from 'mongoose';
+import { readdirSync } from 'fs';
+import path, { dirname } from 'path';
 
 const app = express();
 
@@ -13,28 +15,18 @@ app.use(morgan("tiny"));
 app.use(express.json()); // server doc du lieu tra ve trong terminal
 
 //routes
-app.use("/api", productRouter)
+// readdirSync(`${__dirname}/routes`).forEach(async (fileName) => {
+//     import("./routes/" + fileName)
+//         .then(({default: router}) => router.default)
+//         .then((router) => app.use("/api", router))
+// }) ;
+app.use("/api", routerProduct);
+app.use("/api", routerAuth);
 
-// const server = http.createServer((req, res) => {
-//     console.log("Tao server thanh cong!");
-    
-//     const url = req.url;
-//     console.log(url);
-//     if(url === "/api/products"){
-//         const data = [
-//             {id: 1, name: "A"},
-//             {id: 2, name: "B"}
-//         ]
-//         res.end(JSON.stringify(data));
-//     } else if(url === "/api/posts") {
-//         console.log("API Post");
-//     } else {
-//         res.setHeader("Content-Type", "text/html");
-//         res.write("<html><body><h1>Hello Home Page</h1></body></html>");
-//         res.end();
-//     }
-// })
-
+// connection db
+mongoose.connect("mongodb://localhost:27017/nodejs")
+    .then(() => console.log("Connect database successfully!"))
+    .catch(err => console.log(err))
 
 //connect
 const PORT = 3001;
