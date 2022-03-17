@@ -1,5 +1,5 @@
 import mongoose, {Schema } from  "mongoose";
-
+const {ObjectId} = mongoose.Types; 
 const productSchema = new Schema({
     name: {
         type: String,
@@ -11,6 +11,11 @@ const productSchema = new Schema({
         type: Number,
         required: true,
         unique: true
+    },
+    categoryPro: {
+        type: ObjectId,
+        ref: 'CategoryPro'
+
     }
 }, {timestamps: true});
 

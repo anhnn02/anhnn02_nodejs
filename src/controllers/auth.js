@@ -25,10 +25,16 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const user = await Auth.findOne({email: req.body.email}).exec();
-        res.json(user);
+        res.json(user)
+        // if(res.json(user) != null) {
+        //     if(res.json(user.password) == req.body.password) {
+        //         console.log("Ok", res.json(user))
+        //     } 
+        //     // else { console.log("Sai tai khoan hoac mat khau")}
+        // }else{ console.log("Goodbye")}
     } catch (error) {
         res.status(400).json({
-            error: "Sai tai khoan hoac mat khau"
+            error: "Khong tim thay tai khoan"
         })
     }
 }

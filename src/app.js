@@ -1,11 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import routerProduct from './routes/products';
-import routerAuth from './routes/user';
 import mongoose  from 'mongoose';
 import { readdirSync } from 'fs';
 import path, { dirname } from 'path';
+import routerProduct from './routes/products';
+import routerAuth from './routes/user';
+import routerCate from './routes/categoryPro';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.json()); // server doc du lieu tra ve trong terminal
 // }) ;
 app.use("/api", routerProduct);
 app.use("/api", routerAuth);
+app.use("/api", routerCate);
 
 // connection db
 mongoose.connect("mongodb://localhost:27017/nodejs")
