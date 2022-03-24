@@ -5,7 +5,8 @@ import mongoose  from 'mongoose';
 import { readdirSync } from 'fs';
 import path, { dirname } from 'path';
 import routerProduct from './routes/products';
-import routerAuth from './routes/user';
+import routerAuth from './routes/auth';
+import routerUser from './routes/user';
 import routerCate from './routes/categoryPro';
 
 const app = express();
@@ -23,6 +24,8 @@ app.use(express.json()); // server doc du lieu tra ve trong terminal
 // }) ;
 app.use("/api", routerProduct);
 app.use("/api", routerAuth);
+// danh sách
+app.use("/api", routerUser);
 app.use("/api", routerCate);
 
 // connection db

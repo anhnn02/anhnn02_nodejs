@@ -1,9 +1,7 @@
 import { Router } from 'express';
-import { list, register, login } from '../controllers/auth';
+import { list } from '../controllers/user';
 const router = Router();
 
-router.post('/register', register);
-router.post('/login', login);
 router.get('/users', list);
 
-export default router; 
+export default router;

@@ -1,40 +1,58 @@
-import Auth from "../models/auth";
-
-export const list = async (req, res) => {
-     try {
-        const users = await Auth.find({}).exec();
-        res.json(users);
-    } catch (error) {
-        res.status(400).json({
-            error: "Khong tim duoc san pham"
-        })
-    }
-}
+import Auth, {} from "../models/user";
 
 export const register = async (req, res) => {
+    const {email, name, password} = req.body;
     try {
-        const user = await new Auth(req.body).save();
-        res.json(user);
+        const existUser = await Auth.findOne({email}).exec()
+        if(existUser) {
+            res.status(400).json({
+                msg: "Tai khoan da ton tai"
+            })
+        }
+        
+        const user = await new Auth({email, name, password}).save();
+        res.json({
+            user: {
+                _id: user._id,
+                email: user.email,
+                name: user.name,
+            }
+        });
     } catch (error) {
+        console.log(error);
         res.status(400).json({
-            error: "Khong dang ki duoc"
+            error: "Khong dang ki duoc tai khoan"
         })
     }
 }
 
 export const login = async (req, res) => {
+    const {email, password} = req.body;
     try {
-        const user = await Auth.findOne({email: req.body.email}).exec();
-        res.json(user)
-        // if(res.json(user) != null) {
-        //     if(res.json(user.password) == req.body.password) {
-        //         console.log("Ok", res.json(user))
-        //     } 
-        //     // else { console.log("Sai tai khoan hoac mat khau")}
-        // }else{ console.log("Goodbye")}
+        const user = await Auth.findOne({email}).exec();
+
+        if(!user) {
+            res.status(400).json({
+                error: "Tai khoan khong ton tai"
+            })
+        }
+        if(!user.authenticate(password)) {
+            res.status(400).json({
+                error: "Sai tai khoan hoac mat khau"
+            })
+        }
+        res.json({
+            user: {
+                _id: user._id,
+                email: user.email,
+                name: user.name,
+            }
+        })
+       
     } catch (error) {
+        console.log(error);
         res.status(400).json({
-            error: "Khong tim thay tai khoan"
+            error: "Dang nhap that bai"
         })
     }
 }
