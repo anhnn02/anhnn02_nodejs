@@ -1,16 +1,18 @@
 import Auth, {} from "../models/user";
+import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
     const {email, name, password} = req.body;
     try {
         const existUser = await Auth.findOne({email}).exec()
         if(existUser) {
-            res.status(400).json({
+            return res.status(400).json({
                 msg: "Tai khoan da ton tai"
             })
         }
         
         const user = await new Auth({email, name, password}).save();
+
         res.json({
             user: {
                 _id: user._id,
@@ -41,7 +43,10 @@ export const login = async (req, res) => {
                 error: "Sai tai khoan hoac mat khau"
             })
         }
+        const token = jwt.sign({_id: user._id}, "abc" );
+        
         res.json({
+            token,
             user: {
                 _id: user._id,
                 email: user.email,

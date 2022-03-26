@@ -6,15 +6,23 @@ export const list = async (req, res) => {
         res.json(users);
     } catch (error) {
         res.status(400).json({
-            error: "Khong tim duoc tai khoan"
+            error: "Khong tim duoc tai khoan dau em"
         })
     }
 }
 
 export const userById = async (req, res, next, id) => {
     try {
-        const user = await User.findById(id).exec();
-        res.profile = user;
+        const user = await Auth.findById(id).exec();
+         if(!user){
+            res.status(400).json({
+                message: "Không tìm thấy user"
+            })
+        }
+        req.profile = user;
+        req.profile.password = undefined;
+        next();
+
     } catch (error) {
         res.status(400).json({
             msg: "Khong tim duoc tai khoan"

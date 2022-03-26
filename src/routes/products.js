@@ -1,12 +1,15 @@
 import { Router } from 'express';
 import { get, create, list, remove, update } from '../controllers/product';
-import checkAuth from '../middlewares/checkAuth';
+import { userById } from '../controllers/user';
+import { requiredSignin, isAdmin, isAuth} from '../middlewares/checkAuth';
 const router = Router();
 
-router.get('/products', checkAuth, list);   
-router.post('/products', checkAuth, create);
-router.get('/product/:id', checkAuth, get);
-router.delete('/product/:id', checkAuth, remove);
-router.put('/product/:id', checkAuth, update);
+router.get('/products', list);   
+router.post('/products/:userId', requiredSignin, isAuth, isAdmin, create);
+router.get('/product/:id', get);
+router.delete('/product/:id', remove);
+router.put('/product/:id', update);
+
+router.param("userId", userById)
 
 export default router; 

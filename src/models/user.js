@@ -3,7 +3,7 @@ import {createHmac} from "crypto";
 import {v4 as uuidv4} from "uuid";
 
 const authSchema = new Schema({
-     name: {
+    name: {
         type: String,
         trim: true,
         required: true,

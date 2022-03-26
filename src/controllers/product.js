@@ -15,6 +15,7 @@ export const create = async (req, res) => {
         const product = await new Product(req.body).save();
         res.json(product);
     } catch (err) {
+        console.log(err);
         res.status(400).json({
             error: "Khong them duoc san pham"
         })
