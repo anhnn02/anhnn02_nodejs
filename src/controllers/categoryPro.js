@@ -34,3 +34,37 @@ export const read = async (req, res) => {
         })
     }
 }
+export const update = async (req, res) => {
+    console.log("object");
+    console.log("req", req)
+    const condition = { id: req.params.id }
+    const update = req.body;
+    try {
+        const category = await Category.findOneAndUpdate(condition, update).exec();
+        res.json(category);
+    } catch (err) {
+        res.status(400).json({
+            error: "Sua category khong thanh cong"
+        })
+    }
+}
+export const remove = async (req, res) => {
+    try {
+        const category = await Category.findOneAndDelete({_id: req.params.id});
+        res.json(category);
+    } catch (error) {
+        res.status(400).json({
+            error: "Khong xoa duoc!"
+        })
+    }
+}
+export const get = async (req, res) => {
+    try {
+        const category = await Category.findOne({_id: req.params.id}).exec();
+        res.json(category);
+    } catch (error) {
+        res.status(400).json({
+            error: "Khong tim thay category!"
+        })
+    }
+}

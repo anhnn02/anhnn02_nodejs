@@ -31,9 +31,8 @@ export const get = async (req, res) => {
         })
     }
 }
-
 export const remove = async (req, res) => {
-     try {
+    try {
         const product = await Product.findOneAndDelete({_id: req.params.id});
         res.json(product);
     } catch (err) {

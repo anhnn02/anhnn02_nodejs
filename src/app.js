@@ -8,9 +8,11 @@ import routerProduct from './routes/products';
 import routerAuth from './routes/auth';
 import routerUser from './routes/user';
 import routerCate from './routes/categoryPro';
+import swaggerUI from 'swagger-ui-express';
+import YAML from 'yamljs';
 
 const app = express();
-
+const swaggerJSDocs = YAML.load("./api.yaml")
 //middleware
 app.use(cors());
 app.use(morgan("tiny"));
@@ -27,6 +29,7 @@ app.use("/api", routerAuth);
 // danh sách
 app.use("/api", routerUser);
 app.use("/api", routerCate);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJSDocs))
 
 // connection db
 mongoose.connect("mongodb://localhost:27017/nodejs")
