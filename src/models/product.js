@@ -1,21 +1,33 @@
 import mongoose, {Schema } from  "mongoose";
-const {ObjectId} = mongoose.Types; 
+const ObjectId = mongoose.Schema.Types.ObjectId; 
+
 const productSchema = new Schema({
     name: {
         type: String,
         minLength: 5,
         required: true,
-        unique: true
     },
-    price: {
-        type: Number,
+    regularPrice: {
+        type: String,
         required: true,
-        unique: true
+    },
+    salePrice: {
+        type: String,
+    },
+    img: {
+        type: String,
+        // required: true,
+    },
+    desc: {
+        type: String,
+    },
+    size: {
+        type: String,
+        required: true,
     },
     categoryPro: {
         type: ObjectId,
         ref: 'CategoryPro'
-
     }
 }, {timestamps: true});
 

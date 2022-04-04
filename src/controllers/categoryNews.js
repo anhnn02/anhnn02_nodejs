@@ -1,5 +1,4 @@
-import Category from "../models/categoryPro";
-import Product from "../models/product";
+import Category from "../models/categoryNews";
 
 export const create = async (req, res) => {
     try {
@@ -21,19 +20,19 @@ export const list = async (req, res) => {
         })
     }
 }
-export const read = async (req, res) => {
-    const condition = {_id: req.params.id}
-    try {
-        const category = await Category.findOne(condition).exec();
-        // neu trung ten thi khong can viet: categoryPro: category._id
-        const products = await Product.find({categoryPro: category._id}).select('-categoryPro').exec();
-        res.json({category, products});
-    } catch (error) {
-        res.status(400).json({
-            error: "Khong tim thay san pham thuoc category!"
-        })
-    }
-}
+// export const read = async (req, res) => {
+//     const condition = {_id: req.params.id}
+//     try {
+//         const category = await Category.findOne(condition).exec();
+//         // neu trung ten thi khong can viet: categoryPro: category._id
+//         const products = await Product.find({categoryPro: category._id}).select('-categoryPro').exec();
+//         res.json({category, products});
+//     } catch (error) {
+//         res.status(400).json({
+//             error: "Khong tim thay san pham thuoc category!"
+//         })
+//     }
+// }
 export const update = async (req, res) => {
     const condition = { _id: req.params.id }
     const update = req.body;
@@ -41,7 +40,6 @@ export const update = async (req, res) => {
         const category = await Category.findOneAndUpdate(condition, update).exec();
         res.json(category);
     } catch (err) {
-        console.log("err", err);
         res.status(400).json({
             error: "Sua category khong thanh cong"
         })

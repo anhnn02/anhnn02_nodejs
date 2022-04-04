@@ -25,6 +25,20 @@ paths:
         required: true
         schema: 
           $ref: "#/components/schemas/Product"
+  /api/product/{productId}:
+    delete:
+      summary: Xóa sản phẩm
+      responses:
+        "200":
+          description: Xóa sản phẩm thành công
+        "400":
+          description: Không xóa được
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "Pet id to delete"
+        required: true
+        type: "string"
 
 # Models
 components:

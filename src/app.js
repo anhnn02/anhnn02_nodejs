@@ -5,14 +5,17 @@ import mongoose  from 'mongoose';
 import { readdirSync } from 'fs';
 import path, { dirname } from 'path';
 import routerProduct from './routes/products';
+import routerNews from './routes/news';
 import routerAuth from './routes/auth';
 import routerUser from './routes/user';
-import routerCate from './routes/categoryPro';
+import routerCateProduct from './routes/categoryPro';
+import routerCateNews from './routes/categoryNews';
 import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
 
 const app = express();
 const swaggerJSDocs = YAML.load("./api.yaml")
+
 //middleware
 app.use(cors());
 app.use(morgan("tiny"));
@@ -25,10 +28,12 @@ app.use(express.json()); // server doc du lieu tra ve trong terminal
 //         .then((router) => app.use("/api", router))
 // }) ;
 app.use("/api", routerProduct);
+app.use("/api", routerNews);
 app.use("/api", routerAuth);
 // danh sách
 app.use("/api", routerUser);
-app.use("/api", routerCate);
+app.use("/api", routerCateProduct);
+app.use("/api", routerCateNews);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJSDocs))
 
 // connection db

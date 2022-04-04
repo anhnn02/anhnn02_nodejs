@@ -1,16 +1,22 @@
 import Product from "../models/product";
 
 export const list = async (req, res) => {
-     try {
-        const products = await Product.find({}).exec();
+    try {
+        const products = await Product.find().populate('categoryPro');
         res.json(products);
-    } catch (err) {
-        res.status(400).json({
-            error: "Khong tim duoc san pham"
+        // return res.status(200).json({
+        //     status: true,
+        //     docs: products
+        // }) 
+    } catch (error) {
+        return res.status(400).json({
+            status: false,
+            message: "Khong tim duoc san pham"
         })
     }
 }
 export const create = async (req, res) => {
+    console.log(req.body)
     try {
         const product = await new Product(req.body).save();
         res.json(product);
@@ -42,7 +48,7 @@ export const remove = async (req, res) => {
     }
 }
 export const update = async (req, res) => {
-    const condition = { id: req.params.id }
+    const condition = { _id: req.params.id }
     const update = req.body;
     try {
         const product = await Product.findOneAndUpdate(condition, update).exec();

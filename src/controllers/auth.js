@@ -21,7 +21,7 @@ export const register = async (req, res) => {
             }
         });
     } catch (error) {
-        console.log(error);
+        console.log("error", error);
         res.status(400).json({
             error: "Khong dang ki duoc tai khoan"
         })
