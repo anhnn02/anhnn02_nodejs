@@ -1,7 +1,11 @@
 import { Router } from 'express';
-import { list } from '../controllers/user';
+import { list, read, userById } from '../controllers/user';
+import { isAdmin, isAuth, requiredSignin } from '../middlewares/checkAuth';
 const router = Router();
 
-router.get('/users', list);
+router.get('/users/:userId', requiredSignin, isAuth, isAdmin, list);
+router.get('/users/:id/:userId', requiredSignin, isAuth, isAdmin, read);
+
+router.param("userId", userById)
 
 export default router;

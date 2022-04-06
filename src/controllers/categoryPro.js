@@ -67,3 +67,18 @@ export const get = async (req, res) => {
         })
     }
 }
+export const relatedProduct = async (req, res) => {
+    const idPro = req.params.idPro
+    const condition = { _id: req.params.id }
+    try {
+        const category = await Category.findOne(condition).exec();
+        // neu trung ten thi khong can viet: categoryPro: category._id
+        const products = await Product.find({ categoryPro: category._id }).select('-categoryPro').exec();
+        const relatedProduct = products.filter((item) => item._id != idPro)
+        res.json({ category, relatedProduct });
+    } catch (error) {
+        res.status(400).json({
+            error: "Khong tim thay san pham thuoc category!"
+        })
+    }
+}

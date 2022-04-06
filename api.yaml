@@ -39,22 +39,130 @@ paths:
         description: "Pet id to delete"
         required: true
         type: "string"
+    get: 
+      summary: Lấy một sản phẩm
+      responses:
+        "200":
+          description: Lấy sản phẩm thành công
+        "400":
+          description: Không tìm thấy sản phẩm
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "Pet id to get"
+        required: true
+        type: "string"
+    put: 
+      summary: Cập nhật sản phẩm
+      responses:
+        "200":
+          description: Cập nhật sản phẩm thành công
+        "400":
+          description: Cập nhật sản phẩm không thành công
+      parameters:
+      - in: "body" 
+        name: "body"
+        description: "Bắt buộc phải có các trường giống bên dưới"
+        required: true
+        type: "string"
+        schema: 
+          $ref: "#/components/schemas/Product"
+  /api/news:
+    get:
+      summary: Lấy danh sách bài viết
+      responses: 
+        "200":
+          description: Lấy bài viết thành công
+        "400":
+          description: Không lấy được bài viết 
+    post:
+      summary: Thêm bài viết
+      responses:
+        "200":
+          description: Thêm bài viết thành công
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Bắt buộc phải có các trường giống bên dưới"
+        required: true
+        schema: 
+          $ref: "#/components/schemas/Product"
+  /api/news/{newsId}:
+    delete:
+      summary: Xóa bài viết
+      responses:
+        "200":
+          description: Xóa bài viết thành công
+        "400":
+          description: Không xóa được
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "Pet id to delete"
+        required: true
+        type: "string"
+    get: 
+      summary: Lấy một bài viết
+      responses:
+        "200":
+          description: Lấy bài viết thành công
+        "400":
+          description: Không tìm thấy bài viết
+      parameters:
+      - name: "newsId"
+        in: "path"
+        description: "Pet id to get"
+        required: true
+        type: "string"
+    put: 
+      summary: Cập nhật bài viết
+      responses:
+        "200":
+          description: Cập nhật bài viết thành công
+        "400":
+          description: Cập nhật bài viết không thành công
+      parameters:
+      - in: "body" 
+        name: "body"
+        description: "Bắt buộc phải có các trường giống bên dưới"
+        required: true
+        type: "string"
+        schema: 
+          $ref: "#/components/schemas/News"
 
+         
 # Models
 components:
   schemas:
     Product:
       properties:
         _id:
-          type: integer
+          type: string
         name:
           type: string
           minLength: 5
-        price: 
-          type: integer
-        category:
+        regularPrice: 
+          type: string
+        salePrice: 
+          type: string
+        size: 
+          type: string
+        categoryPro:
+          type: string
+      required:
+        - name
+        - regularPrice
+        - size
+        - categoryPro
+    News:
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+          minLength: 5
+        categoryNews:
           type: string
       required:
         - name
         - price
-        - category

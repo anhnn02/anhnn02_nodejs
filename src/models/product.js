@@ -7,6 +7,9 @@ const productSchema = new Schema({
         minLength: 5,
         required: true,
     },
+    slug: {
+        type: String,
+    },
     regularPrice: {
         type: String,
         required: true,

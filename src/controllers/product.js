@@ -32,6 +32,7 @@ export const get = async (req, res) => {
         const product = await Product.findOne({_id: req.params.id}).exec();
         res.json(product);
     } catch (err) {
+        console.log(err);
         res.status(400).json({
             error: "Khong co san pham"
         })
@@ -57,5 +58,36 @@ export const update = async (req, res) => {
         res.status(400).json({
             error: "Sua san pham khong thanh cong"
         })
+    }
+}
+
+export const search = async (req, res) => {
+    try {
+        const searchField = req.query.name;
+        const product = await Product.find({ name: { $regex: searchField, $options: '$i' } })
+        if (searchField == "") {
+            res.json("")
+        } else {
+            res.json(product)
+        }
+    } catch (error) {
+        res.status(400).json(
+            { error: "Khong tim thay san pham" }
+        )
+    }
+}
+
+export const page = async (req, res) => {
+    try {
+        const page = req.query.page * 1 || 1;
+        const limit = req.query.limit * 1 || 5;
+        const skip = limit * (page - 1)
+        const sort = req.query.sort || '-createAt'
+        const product = await Product.find().limit(limit).skip(skip).sort(sort)
+        res.json(product)
+    } catch (error) {
+        res.status(400).json(
+            { error: "Khong tim thay san pham" }
+        )
     }
 }

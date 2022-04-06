@@ -30,12 +30,16 @@ export const userById = async (req, res, next, id) => {
     }
 }
 
-export const read = (req, res) => {
-    const user = req.profile;
+export const read = async (req, res) => {
+    try {
+        const userInfo = await Auth.findOne({ _id: req.params.id }).exec();
+        res.json(userInfo);
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({
+            error: "Khong co user nay"
+        })
+    }
     
-    user.hashed_password = undefined;
-    user.salt = undefined;
-
-    res.json(user)
 }
 
