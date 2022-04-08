@@ -23,7 +23,7 @@ export const register = async (req, res) => {
     } catch (error) {
         console.log("error", error);
         res.status(400).json({
-            error: "Khong dang ki duoc tai khoan"
+            msg: "Khong dang ki duoc tai khoan"
         })
     }
 }
@@ -35,12 +35,12 @@ export const login = async (req, res) => {
 
         if(!user) {
             res.status(400).json({
-                error: "Tai khoan khong ton tai"
+                msg: "Tai khoan khong ton tai"
             })
         }
         if(!user.authenticate(password)) {
             res.status(400).json({
-                error: "Sai tai khoan hoac mat khau"
+                msg: "Sai tai khoan hoac mat khau"
             })
         }
         const token = jwt.sign({_id: user._id}, "abc" );
@@ -58,7 +58,7 @@ export const login = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(400).json({
-            error: "Dang nhap that bai"
+            msg: "Dang nhap that bai"
         })
     }
 }

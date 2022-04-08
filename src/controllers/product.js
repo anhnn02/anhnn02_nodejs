@@ -11,7 +11,7 @@ export const list = async (req, res) => {
     } catch (error) {
         return res.status(400).json({
             status: false,
-            message: "Khong tim duoc san pham"
+            msg: "Khong tim duoc san pham"
         })
     }
 }
@@ -23,7 +23,7 @@ export const create = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(400).json({
-            error: "Khong them duoc san pham"
+            msg: "Khong them duoc san pham"
         })
     }
 }
@@ -34,7 +34,7 @@ export const get = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(400).json({
-            error: "Khong co san pham"
+            msg: "Khong co san pham"
         })
     }
 }
@@ -44,7 +44,7 @@ export const remove = async (req, res) => {
         res.json(product);
     } catch (err) {
         res.status(400).json({
-            error: "Xoa san pham khong thanh cong"
+            msg: "Xoa san pham khong thanh cong"
         })
     }
 }
@@ -56,7 +56,7 @@ export const update = async (req, res) => {
         res.json(product);
     } catch (err) {
         res.status(400).json({
-            error: "Sua san pham khong thanh cong"
+            msg: "Sua san pham khong thanh cong"
         })
     }
 }
@@ -72,7 +72,7 @@ export const search = async (req, res) => {
         }
     } catch (error) {
         res.status(400).json(
-            { error: "Khong tim thay san pham" }
+            { msg: "Khong tim thay san pham" }
         )
     }
 }
@@ -82,7 +82,7 @@ export const page = async (req, res) => {
         const page = req.query.page * 1 || 1;
         const limit = req.query.limit * 1 || 5;
         const skip = limit * (page - 1)
-        const sort = req.query.sort || '-createAt'
+        const sort = req.query.sort || {'createdAt': -1}
         const product = await Product.find().limit(limit).skip(skip).sort(sort)
         res.json(product)
     } catch (error) {

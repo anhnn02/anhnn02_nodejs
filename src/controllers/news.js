@@ -6,7 +6,7 @@ export const list = async (req, res) => {
         res.json(newsList);
     } catch (err) {
         res.status(400).json({
-            error: "Khong tim duoc bai viet"
+            msg: "Khong tim duoc bai viet"
         })
     }
 }
@@ -17,7 +17,7 @@ export const create = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(400).json({
-            error: "Khong them duoc bai viet"
+            msg: "Khong them duoc bai viet"
         })
     }
 }
@@ -27,7 +27,7 @@ export const get = async (req, res) => {
         res.json(news);
     } catch (err) {
         res.status(400).json({
-            error: "Khong co bai viet"
+            msg: "Khong co bai viet"
         })
     }
 }
@@ -37,7 +37,7 @@ export const remove = async (req, res) => {
         res.json(news);
     } catch (err) {
         res.status(400).json({
-            error: "Xoa bai viet khong thanh cong"
+            msg: "Xoa bai viet khong thanh cong"
         })
     }
 }
@@ -49,7 +49,7 @@ export const update = async (req, res) => {
         res.json(news);
     } catch (err) {
         res.status(400).json({
-            error: "Sua bai viet khong thanh cong"
+            msg: "Sua bai viet khong thanh cong"
         })
     }
 }

@@ -12,6 +12,8 @@ import routerCateProduct from './routes/categoryPro';
 import routerCateNews from './routes/categoryNews';
 import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
+import routerInvoice from './routes/invoice';
+import routerInvoiceDetail from './routes/invoiceDetail';
 
 const app = express();
 const swaggerJSDocs = YAML.load("./api.yaml")
@@ -34,6 +36,8 @@ app.use("/api", routerAuth);
 app.use("/api", routerUser);
 app.use("/api", routerCateProduct);
 app.use("/api", routerCateNews);
+app.use("/api", routerInvoice);
+app.use("/api", routerInvoiceDetail);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJSDocs))
 
 // connection db

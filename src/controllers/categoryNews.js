@@ -6,7 +6,7 @@ export const create = async (req, res) => {
         res.json(category);
     } catch (error) {
         res.status(400).json({
-            error: "Khong them duoc category!"
+            msg: "Khong them duoc category!"
         })
     }
 }
@@ -16,7 +16,7 @@ export const list = async (req, res) => {
         res.json(category);
     } catch (error) {
         res.status(400).json({
-            error: "Khong tim thay category!"
+            msg: "Khong tim thay category!"
         })
     }
 }
@@ -41,7 +41,7 @@ export const update = async (req, res) => {
         res.json(category);
     } catch (err) {
         res.status(400).json({
-            error: "Sua category khong thanh cong"
+            msg: "Sua category khong thanh cong"
         })
     }
 }
@@ -51,7 +51,7 @@ export const remove = async (req, res) => {
         res.json(category);
     } catch (error) {
         res.status(400).json({
-            error: "Khong xoa duoc!"
+            msg: "Khong xoa duoc!"
         })
     }
 }
@@ -61,7 +61,7 @@ export const get = async (req, res) => {
         res.json(category);
     } catch (error) {
         res.status(400).json({
-            error: "Khong tim thay category!"
+            msg: "Khong tim thay category!"
         })
     }
 }
