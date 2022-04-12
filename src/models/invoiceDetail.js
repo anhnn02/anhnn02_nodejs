@@ -8,8 +8,12 @@ const invoiceDetailSchema = new Schema({
         required: true,
     },
     img: {
-        type: Number,
+        type: String,
         required: true,
+    },
+    size: {
+        type: String,
+        required: true
     },
     regularPrice: {
         type: Number,

@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const invoiceSchema = new Schema({
     fullname: {
@@ -14,12 +15,21 @@ const invoiceSchema = new Schema({
         type: String,
         required: true,
     },
+    total: {
+        type: Number,
+        required: true,
+    },
     status: {
+        type: Number,
         default: 0
     },
     note: {
         type: String,
     },
+    userId: {
+        type: ObjectId,
+        ref: 'Auth'
+    }
 
 }, { timestamps: true });
 

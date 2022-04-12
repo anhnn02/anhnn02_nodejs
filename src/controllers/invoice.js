@@ -39,7 +39,7 @@ export const read = async (req, res) => {
     try {
         const invoice = await Invoice.findOne(condition).exec();
         // neu trung ten thi khong can viet: categoryPro: category._id
-        const invoiceDetails = await InvoiceDetail.find({ invoiceId: invoice._id }).select('-categoryPro').exec();
+        const invoiceDetails = await InvoiceDetail.find({ invoiceId: invoice._id }).exec();
         res.json({ invoice, invoiceDetails });
     } catch (error) {
         res.status(400).json({

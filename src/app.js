@@ -8,6 +8,7 @@ import routerProduct from './routes/products';
 import routerNews from './routes/news';
 import routerAuth from './routes/auth';
 import routerUser from './routes/user';
+import routerComment from "./routes/comment"
 import routerCateProduct from './routes/categoryPro';
 import routerCateNews from './routes/categoryNews';
 import swaggerUI from 'swagger-ui-express';
@@ -32,6 +33,8 @@ app.use(express.json()); // server doc du lieu tra ve trong terminal
 app.use("/api", routerProduct);
 app.use("/api", routerNews);
 app.use("/api", routerAuth);
+app.use("/api", routerUser);
+app.use("/api", routerComment);
 // danh sách
 app.use("/api", routerUser);
 app.use("/api", routerCateProduct);
